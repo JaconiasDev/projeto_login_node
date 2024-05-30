@@ -1,0 +1,93 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Poppins", sans-serif;
+    background: #334e58;
+}
+
+main{
+ display: flex;
+}
+
+input{
+    padding: 17px 30px 17px 30px;
+    border-radius: 4px;
+    outline: none;
+    border: none;
+}
+button{
+    padding: 11px 25px 11px 25px;
+    border-radius: 4px;
+    outline: none;
+    border: none;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
+    color:white;
+    background: #43aa8b;
+    cursor: pointer;
+}
+button:hover{
+    background:#7eccb5;
+}
+
+main{
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+
+.ladoA{
+    background: #ede7d9;
+    padding: 40px 50px 40px 50px;
+    border-radius: 9px 0px 0px 9px ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+img{
+    width: 300px;
+    border-radius: 50%;
+}
+
+.ladoB{
+    background: #ede7d9;
+    width:323px;
+    height:362px;
+    border-radius: 0px 9px 9px 0px;
+    border-left: 1px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.ladoA form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1px;
+}
+
+a{
+    text-decoration: none;
+    color: #43aa8b;
+}
+.paragra{
+    position:relative;
+    top:-21px;
+}
+
+
+
+
+
+
+
+
+
