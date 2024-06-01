@@ -32,7 +32,6 @@ router.post('/postBD',(req,res)=>{
            res.status(200).redirect('/cadastro/sucesso')
            return
         }
-        // Insert_Data({name:nome,mesagem:comentario})
         //  res.redirect('/cadastro/ok')
         res.redirect('/cadastro/errologin')
         GetData();
@@ -41,8 +40,35 @@ router.post('/postBD',(req,res)=>{
  })
  
 
+ router.get('/cadastrarse',(req,res)=>{
+    res.render('tela2')
+})
+
+router.post('/DadosCadastro',(req,res)=>{
+    let {email , senha , senhaConfirm} = req.body;
+    let obj = {
+        nome:email
+    }
+    conexao.query(`SELECT nome FROM ${process.env.DATABASE}.${process.env.TABELA} WHERE nome=? `,[email],(err,rowns)=>{
+       if(err){
+        console.log('erro ao obter dados especificos')
+       }
+       let dadosdb = rowns[0]
+       if(JSON.stringify(dadosdb) === JSON.stringify(obj)){
+         res.render('tela2',{veryfi: true})
+       }
+       if(senha === senhaConfirm){
+        Insert_Data({name:email,mesagem:senhaConfirm});
+       }
+       res.render('tela2',{veryfi: false})
+       return
+    })
+
+
+})
+
  router.get('/errologin',(req,res)=>{
-    res.send('<h3>dados invalidos <a href="/cadastro/home">voltar</a></h3>')
+    res.send('<h3>pessoa nao cadastrada , volte e cadastre-se <a href="/cadastro/home">voltar</a></h3>')
 })
 
  router.get('/ok',(req,res)=>{

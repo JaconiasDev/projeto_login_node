@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <link rel="stylesheet" href="/css/cadastro.css">
+    <title>cadastra-se</title>
+</head>
+<body>
+   <form action="/cadastro/DadosCadastro" method="post">
+      <main>
+      {{#if veryfi}}
+        <div class="dadosvalidar">
+          <p>email ja cadastrado, tente outro email</p>
+        </div>
+      {{/if}}
+       <div class="conteiner1">
+          <h1>SingUp</h1>
+            <div class="conteinerInterno">
+                <div class="inputs">
+                  <input name="email" type="text" placeholder="digite seu email"><br>
+                  <input  name="senha" type="password" placeholder="digite uma senha"><br>
+                  <input   name="senhaConfirm" type="password" placeholder="cofirme sua senha">
+                </div>
+                <div class="conteinerRemenber">
+                    <input type="checkbox">
+                    <p class="check">relembre-me</p>
+                    <span class="esqueciSenha"><a href="#">esqueci a senha</a></span>
+                </div>
+                <div class="btns">
+                  <button type="submit"> cadastar </button>
+                </div>
+            </div>
+       </div>
+    </main>
+   </form>
+    <br>
+    <div class="linhaH">
+      <hr>
+       <p>ou</p>
+       <hr>
+    </div>
+    <br>
+     <P class="pLogin"> conecte-se usando</P>
+     <br>
+    <div class="logs">
+      <div class="log log1"><ion-icon name="logo-google"></ion-icon></div>
+      <div class="log log2"><ion-icon name="logo-facebook"></ion-icon></div>
+      <div class="log log3"><ion-icon name="logo-instagram"></ion-icon></div>
+    </div>
+</body>
+</html>
