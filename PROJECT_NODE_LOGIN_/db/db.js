@@ -1,5 +1,6 @@
 
 const mysql = require("mysql2");
+
 require("dotenv").config();
 
 const conexao = mysql.createConnection({
@@ -29,10 +30,11 @@ const GetData = () =>{
     })   
 }
 
-// inserir dados ao banco de dados!
+
+//inserir dados ao banco de dados!
 const Insert_Data = (data) =>{
-    conexao.query(`INSERT INTO ${process.env.DATABASE}.${process.env.TABELA}(nome,mensagem) VALUES(?,?)`,
-    [data.name,data.mesagem],
+    conexao.query(`INSERT INTO ${process.env.DATABASE}.${process.env.TABELA}(email,senha) VALUES(?,?)`,
+    [data.email,data.senha],
     (error)=>{
        if(error){
          console.log('erro na hora de inserir dados '+ error);
@@ -44,8 +46,8 @@ const Insert_Data = (data) =>{
 
 // modificar dados do banco de dados
 const  ModifyData = (id,data) => {
-    conexao.query(`UPDATE  ${process.env.DATABASE}.${process.env.TABELA} SET nome=?,mensagem=? WHERE id=?`,
-    [data.name,data.messager,1],
+    conexao.query(`UPDATE  ${process.env.DATABASE}.${process.env.TABELA} SET email=?,senha=? WHERE id=?`,
+    [data.email,data.senha,1],
     (error)=>{
         if(error){
          console.log('error ao atualizar dados! tente novamente');
@@ -54,7 +56,7 @@ const  ModifyData = (id,data) => {
         console.log('dados atualizados')
     })
 }
-//ModifiData(1,{name:'junin',messager:'ola sou o junin'});
+//ModifiData(1,{email:'junin2gmail...',senha:'12345/criptrografada'});
 
 // apagar dados do db
 const Drop_data = (id) =>{

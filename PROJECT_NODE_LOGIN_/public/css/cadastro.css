@@ -36,13 +36,14 @@ main{
    align-items: center;
 }
  
- button{
+.btn0001{
  position: relative;
  top: 25px;
  padding: 15px 36px;
  border-radius: 5px;
  border: none;
  font-size: medium;
+ background-color: rgba(177, 159, 159, 0.952);;
  }
 
 input{
@@ -127,6 +128,34 @@ ion-icon{
     display: flex;
     justify-content: center;
     padding: 10px;
+}
+
+.popUp{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    background: rgba(95, 224, 56, 0.897);
+    position: relative;
+    top: -40px;
+    /* width:350px;
+    height: 120px; */
+    padding: 28px 43px ;
+}
+
+.inforsPop{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: x-large;
+}
+.btn002{
+   padding: 10px 20px 10px 20px;
+   border-radius: 5px;
+   border: none;
+   font-size: 15px;
+   background-color: rgba(177, 159, 159, 0.952);
 }
 
 /* .dadosvalidar2{

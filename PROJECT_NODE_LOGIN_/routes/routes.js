@@ -2,41 +2,47 @@ const express = require("express");
 const app = express();
 const router = express.Router();
 const exphbs = require('express-handlebars');
+const jwt = require('jsonwebtoken');
+const cookieParser = require('cookie-parser');
+const bcrypt = require('bcrypt');
 const {GetData ,Insert_Data ,ModifyData ,Drop_data,conexao} = require('../db/db');
 require('dotenv').config();
 
 
-router.post('/postBD',(req,res)=>{
-    let {nome,comentario} = req.body;
+router.post('/postBD', (req,res)=>{
+    let {email,senha} = req.body;
 
-     if(!nome || !comentario){
+     if(!email || !senha){
         res.redirect('/cadastro/erro')
         return;
     }
+    
+    conexao.query(`SELECT email,senha FROM ${process.env.DATABASE}.${process.env.TABELA} WHERE email=?`,
+        [email],
+         async (err,rowns)=>{
+            try{
+                if(err){
+                    console.log('erro ao selecionar dados')
+                }
+               if(rowns){
+                let db = rowns[0]
+    
+                let emailVerify = db.email
+                let senhaVerify = db.senha
+                let senhaCripto = await  bcrypt.compare(senha,senhaVerify); 
+                if(email == emailVerify && senhaCripto == true){
+                    res.status(200).redirect('/cadastro/sucesso')
+                    GetData();
+                    return
+                }
+                res.redirect('/cadastro/errologin')
+                return
+               }
+            }catch(err){
+              console.log(err) 
+            }  
 
-    let objDados = {
-        nome:nome,
-        mensagem:comentario
-    }
-
-    conexao.query(`SELECT nome , mensagem FROM ${process.env.DATABASE}.${process.env.TABELA} WHERE nome=? AND mensagem=?`,[nome,comentario],
-    (err,rowns)=>{
-       if(err){
-          console.log('error')
-          return;
-       }
-
-       if(rowns){
-        const db = rowns[0]
-        if(JSON.stringify(db) === JSON.stringify(objDados)){
-           res.status(200).redirect('/cadastro/sucesso')
-           return
-        }
-        //  res.redirect('/cadastro/ok')
-        res.redirect('/cadastro/errologin')
-        GetData();
-       }
-    })
+     })
  })
  
 
@@ -44,24 +50,33 @@ router.post('/postBD',(req,res)=>{
     res.render('tela2')
 })
 
-router.post('/DadosCadastro',(req,res)=>{
+router.post('/DadosCadastro', async (req,res)=>{
     let {email , senha , senhaConfirm} = req.body;
+
+    let criptoSenha =  await bcrypt.hash(senhaConfirm,10);
+
     let obj = {
-        nome:email
+        email:email
     }
-    conexao.query(`SELECT nome FROM ${process.env.DATABASE}.${process.env.TABELA} WHERE nome=? `,[email],(err,rowns)=>{
-       if(err){
-        console.log('erro ao obter dados especificos')
+    conexao.query(`SELECT email FROM ${process.env.DATABASE}.${process.env.TABELA} WHERE email=? `,[email],(err,rowns)=>{
+        let popUP = false;
+       try{
+        if(err){
+            console.log('erro ao obter dados especificos')
+           }
+           let dadosdb = rowns[0]
+           if(JSON.stringify(dadosdb) === JSON.stringify(obj)){
+             res.render('tela2',{veryfi: true})
+           }
+           if(senha === senhaConfirm){
+            popUP=true
+            Insert_Data({email:email,senha:criptoSenha});
+            res.render('tela2',{veryfi: false,popUp:popUP})
+            return
+           }
+       }catch(err){
+          console.log('erro '+ err)
        }
-       let dadosdb = rowns[0]
-       if(JSON.stringify(dadosdb) === JSON.stringify(obj)){
-         res.render('tela2',{veryfi: true})
-       }
-       if(senha === senhaConfirm){
-        Insert_Data({name:email,mesagem:senhaConfirm});
-       }
-       res.render('tela2',{veryfi: false})
-       return
     })
 
 

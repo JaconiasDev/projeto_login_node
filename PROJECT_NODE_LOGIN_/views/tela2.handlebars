@@ -9,6 +9,16 @@
     <title>cadastra-se</title>
 </head>
 <body>
+    {{#if popUp}}
+      <div class="popUp">
+         <div class="inforsPop">
+          <p>dados cadastrados com sucesso! </p>
+          <p>volte a tela de login e log-se a sua conta </p><br>
+          <button class="btn002" type="button"><a href="/cadastro/home">voltar</a></button>
+         </div>
+      </div>
+    {{/if}}
+
    <form action="/cadastro/DadosCadastro" method="post">
       <main>
       {{#if veryfi}}
@@ -30,7 +40,7 @@
                     <span class="esqueciSenha"><a href="#">esqueci a senha</a></span>
                 </div>
                 <div class="btns">
-                  <button type="submit"> cadastar </button>
+                  <button class="btn0001" type="submit"> cadastar </button>
                 </div>
             </div>
        </div>
